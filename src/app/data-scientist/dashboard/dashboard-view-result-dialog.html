@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Result</h1>
+<div mat-dialog-content>
+  <div *ngFor="let result of data.result.split(',');let i = index">
+    <a href="http://athena.a2hosted.com/DataSets/{{result}}" mat-button color="accent" style="font-weight:bold">File {{i}}</a>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

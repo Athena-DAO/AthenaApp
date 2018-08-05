@@ -10,4 +10,5 @@ export interface Pipeline {
   numberOfContainers: number;
   result: string;
   parameters: PipelineParameters[];
+  headerImage: string;
 }

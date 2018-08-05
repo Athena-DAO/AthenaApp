@@ -28,6 +28,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.pipelineService.get().subscribe((data) => {
+      data.forEach(x => {
+        x.headerImage = "https://source.unsplash.com/featured/?night?" + x.id;
+      });
       this.pipelines = data;
     });
   }
@@ -52,6 +55,13 @@ export class DashboardComponent implements OnInit {
 
   addPipeline() {
     const dialogRef = this.dialog.open(DashboardAddPipelineDialog);
+  }
+
+  openResultDialog(id): void {
+    const dialogRef = this.dialog.open(DashboardViewResultDialog, {
+      width: '1024px',
+      data: this.pipelines.find(x => x.id == id)
+    });
   }
 }
 
@@ -113,6 +123,25 @@ export class DashboardLogDialog implements OnInit {
     }).catch(() => {
       console.log("Error occured");
     });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'dashboard-view-result-dialog',
+  templateUrl: 'dashboard-view-result-dialog.html'
+})
+export class DashboardViewResultDialog implements OnInit {
+
+  constructor(
+    public dialogRef: MatDialogRef<DashboardLogDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: Pipeline) {
+  }
+
+  ngOnInit() {
   }
 
   onNoClick(): void {
